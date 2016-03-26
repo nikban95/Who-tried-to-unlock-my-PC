@@ -13,14 +13,14 @@ Usage:
 
 2. Locate the line written below. It contains pam_unix.so and is by default before the one with pam_deny.so :
 
-auth	[success=1 default=ignore]	pam_unix.so nullok_secure
+    auth	[success=1 default=ignore]	pam_unix.so nullok_secure
 
 3. In this line change the success=1 with success=2
 
 4. Now add a line below it:
 
-auth    optional                  pam_exec.so     (path to your script)
+    auth    optional                  pam_exec.so     (path to your script)
 
-eg: auth    optional              pam_exec.so 		/home/nike/wrongPasswordPic/wrongPasswordPicScript.sh
+    eg: auth    optional              pam_exec.so 		/home/nike/wrongPasswordPic/wrongPasswordPicScript.sh
 
 5. Now On every wrong login a webcam shot will be stored in /var/tmp directory.

@@ -1,0 +1,105 @@
+a:link,
+a:hover,
+a:active,
+a:visited
+			{
+			font-size: 15px;
+			}
+
+td.four
+			{
+			font-size: 20%;
+			}
+
+li.menu,
+a.pageNN:link,
+a.pageNN:hover,
+a.pageNN:active,
+a.pageNN:visited,
+pre.small,
+pre.slight
+			{
+			font-size: 70%;
+			}
+
+
+li.menuL
+			{
+			font-size: 80%;
+			}
+
+blockquote,
+a.hpage:link,
+a.hpage:hover,
+a.hpage:active,
+a.hpage:visited,
+a.cmp,
+b.hpage,
+pre.middle,
+b.comp,
+pre.mlight
+			{
+			font-size: 90%;
+			}
+
+#copy,
+a.page:link,
+a.page:hover,
+a.page:active,
+a.page:visited,
+a.ref:link,
+a.ref:hover,
+a.ref:active,
+a.ref:visited,
+a.src:link,
+a.src:hover,
+a.src:active,
+a.src:visited,
+li,
+td.type,
+h4,
+b.comptd
+			{
+			font-size: 100%;
+			}
+
+a.hpageL:link,
+a.hpageL:hover,
+a.hpageL:active,
+a.hpageL:visited,
+a.item:link,
+a.item:hover,
+a.item:active,
+a.item:visited,
+a.sol:link,
+a.sol:hover,
+a.sol:active,
+a.sol:visited,
+p
+			{
+			font-size: 110%;
+			}
+
+b.squares,
+b.link,
+h3,
+p.squares,
+span.cat
+			{
+			font-size: 120%;
+			}
+
+h1
+			{
+			font-size: 200%;
+			}
+
+h2
+			{
+			font-size: 160%;
+			}
+
+#cban
+			{
+			font-size: 250%;
+			}

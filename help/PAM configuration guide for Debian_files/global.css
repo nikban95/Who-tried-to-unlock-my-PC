@@ -1,0 +1,331 @@
+#cban
+			{
+			margin-top: 15px;
+			margin-bottom: 15px;
+			}
+
+#copy
+			{
+			text-align: center;
+			}
+
+img.banner
+			{
+			width: 748px;
+			height: 100px;
+			}
+
+img.val
+			{
+			width: 88px;
+			height: 31px;
+			}
+
+img.one
+			{
+			height: 20px;
+			width: 40px;
+			border-width: 1px;
+			}
+
+img.three
+			{
+			float: right;
+			}
+
+img.val,
+img.two,
+table.one,
+table.two,
+table.three,
+table.four,
+table.six,
+table.seven,
+table.eight
+			{
+			border: 0;
+			}
+
+table.one,
+table.two,
+table.three
+			{
+			width: 760px;
+			}
+
+table.two
+			{
+			margin-bottom: 15px;
+			}
+
+table.four,
+td.four,
+td.six,
+td.seven
+			{
+			padding-bottom: 2px;
+			padding-top: 2px;
+			padding-right: 0px;
+			text-align: right;
+			width: 121px;
+			padding-top: 5px;
+			}
+
+table.seven
+			{
+			width: 400px;
+			margin-left: auto;
+			margin-right: auto;
+			}
+
+table.eight
+			{
+			margin-left: 2%;
+			margin-bottom: 2%;
+			width: 200px;
+			float: right;
+			}
+
+table.nine
+			{
+			margin-top: 2%;
+			margin-bottom: 2%;
+			margin-left: 2%;
+			float: right;
+			}
+
+table.nine,
+table.ten
+			{
+			width: 390px;
+			}
+
+table.eleven
+			{
+			margin-top: 2%;
+			margin-bottom: 2%;
+			width: 500px;
+			text-align: center;
+			}
+
+table.eleven,
+table.twelve
+			{
+			width: 500px;
+			}
+
+table.thirteen
+			{
+			margin-left: 2%;
+			margin-top: 2%;
+			margin-bottom: 2%;
+			width: 300px;
+			float: right;
+			}
+
+table.fourteen
+			{
+			width: 250px;
+			}
+
+table.fifteen
+			{
+			margin-right: 2%;
+			margin-top: 2%;
+			margin-bottom: 2%;
+			float: right;
+			}
+
+table.sixteen
+			{
+			width: 632px;
+			}
+
+table.asus
+			{
+			border: 2px solid gray;
+			width: 630px;
+			padding: 0;
+			border-spacing: 0;
+			}
+
+td.asusLd,
+td.asusLl
+			{
+			border-right: 2px solid gray;
+			border-bottom: 2px solid gray;
+			width: 168px;
+			text-align: left;
+			}
+
+td.asusRd,
+td.asusRl
+			{
+			border-bottom: 2px solid gray;
+			width: 462px;
+			text-align: left;
+			}
+
+td.asusBLd,
+td.asusBLl
+			{
+			border-right: 2px solid gray;
+			width: 168px;
+			text-align: left;
+			}
+
+td.asusBRd,
+td.asusBRl
+			{
+			width: 462px;
+			text-align: left;
+			}
+
+td.one
+			{
+			width: 150px;
+			}
+
+td.two
+			{
+			width: 137px;
+			}
+
+td.four
+			{
+			height: 10px;
+			}
+
+td.six
+			{
+			height: 30px;
+			}
+
+td.seven
+			{
+			height: 64px;
+			}
+
+td.eight
+			{
+			height: 20px;
+			}
+
+td.nine
+			{
+			height: 182px;
+			}
+
+td.eleven
+			{
+			width: 20px;
+			}
+
+td.twelve
+			{
+			height: 250px;
+			}
+
+td.s1a,
+td.s2a,
+td.s3a,
+td.s4a,
+td.s1b,
+td.s2b,
+td.s3b,
+td.s4b
+			{
+			height:120px;
+			}
+
+
+td.s1a,
+td.s2a,
+td.s3a,
+td.s4a
+			{
+			width:500px;
+			}
+
+li.blank
+			{
+			list-style-image:url(http://www.rjsystems.nl/img/blank.gif)
+			}
+
+pre,
+pre.light,
+pre.middle,
+pre.small,
+pre.slight,
+pre.mlight
+			{ 
+			overflow:auto; 
+			padding:5px 10px; 
+			}
+
+tr.type
+			{
+			vertical-align:text-top;
+			}
+
+td.mrcodes
+			{
+			padding-right: 40px;
+			padding-left: 40px;
+			}
+
+b.comp
+			{
+			vertical-align: baseline;
+			}
+
+b.comptd
+			{
+			vertical-align: middle;
+			}
+
+span.dropt
+			{
+			color: #000099;
+			}
+
+span.dropt:hover
+			{
+			text-decoration: none; background: #ffffff; z-index: 6; 
+			}
+
+span.dropt span
+			{
+			position: absolute;
+			left: -9999px;
+			margin: 20px 0 0 0px;
+			padding: 3px 3px 3px 3px;
+			border-style: solid;
+			border-color: black;
+			border-width: 1px;
+			z-index: 6;
+			}
+
+span.dropt:hover span
+			{
+			left: 2%;
+			background: #ffffff;
+			}
+
+span.dropt span
+			{
+			position: absolute;
+			left: -9999px;
+			margin: 4px 0 0 0px;
+			padding: 3px 3px 3px 3px;
+			border-style: solid;
+			border-color: black;
+			border-width: 1px;
+			}
+
+span.dropt:hover span
+			{
+			margin: 20px 0 0 170px;
+			background: #ffffff;
+			z-index: 6;
+			}

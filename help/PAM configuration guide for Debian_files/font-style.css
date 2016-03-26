@@ -1,0 +1,22 @@
+a.src:link,
+a.src:hover,
+a.src:active,
+a.src:visited,
+a.sol:link,
+a.sol:hover,
+a.sol:active,
+a.sol:visited,
+a.bui
+			{
+			font-style: normal;
+			}
+
+#Right,
+a.ref:link,
+a.ref:hover,
+a.ref:active,
+a.ref:visited,
+b.italic
+			{
+			font-style: italic;
+			}

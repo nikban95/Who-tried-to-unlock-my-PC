@@ -1,0 +1,191 @@
+a.item:link,
+a.item:hover,
+a.item:visited,
+h1,
+h2,
+h3,
+h4,
+li,
+p,
+span.cat
+			{
+			color: #000000;			/* black */
+			}
+
+.red,
+a.item:active,
+a.ref:hover,
+a.ref:active,
+a.sol:hover,
+a.sol:active
+			{
+			color: #ff0000;			/* red */
+			}
+
+a.ref:link,
+a.ref:visited,
+a.sol:link,
+a.sol:visited,
+a.cmp:link,
+p.bq
+			{
+			color: #000099;			/* blue */
+		/*	color: #993333;			brick red	*/
+			}
+
+.grayred
+			{
+		 	color: #e4abab;			/* light red */
+			}
+
+.shade
+			{
+			background-color: #bbbbbb;	/* light gray */
+			}
+
+a:link,
+a:active,
+a:visited
+			{
+			color: #6666CC;			/* light blue */
+			}
+
+a.page:link,
+a.page:hover,
+a.page:active,
+a.page:visited,
+a.pageNN:link,
+a.pageNN:hover,
+a.pageNN:active,
+a.pageNN:visited,
+a.hpage:link,
+a.hpage:hover,
+a.hpage:active,
+a.hpage:visited,
+a.hpageL:link,
+a.hpageL:hover,
+a.hpageL:active,
+a.hpageL:visited,
+b.hpage,
+li.menu,
+li.menuL
+			{
+			color: #ffffff;			/* white */
+			}
+
+
+body
+			{
+			color: #000000;			/* black */
+			background-color: #ffffff;	/* white */
+			}
+
+select
+			{
+			color: #000000;			/* black */
+			background-color: #33cc99;	/* turqoise */
+			}
+
+table.two,
+table.sixteen
+			{
+			background-color: #e0e0e0;	/* light gray */
+			}
+
+table.four,
+td.four,
+td.six,
+td.seven
+			{
+			background-color: #eeeeee;	/* light gray */
+			}
+
+td.ten
+			{
+			background-color: #b0b0b0;	/* gray */
+			}
+
+td.s1a,
+td.s1b,
+td.s4a,
+td.s4b
+			{
+			background-color: #c0c0c0;	/* gray */
+			}
+
+td.s2a,
+td.s2b
+			{
+			background-color: #f0f0f0;	/* light gray */
+			}
+
+td.s3a,
+td.s3b
+			{
+			background-color: #a0a0a0;	/* gray */
+			}
+
+
+table.asus
+			{
+			background: #ffffff;		/* white */
+			}
+
+td.asusLd,
+td.asusBLd
+			{
+			background: #cacbdf;		/* light blue */
+			}
+
+td.asusLl,
+td.asusBLl
+			{
+			background: #d9dae8;		/* light blue */
+			}
+
+td.asusRd,
+td.asusBRd
+			{
+			background: #e2e4ef;		/* light blue */
+			}
+
+td.asusRl,
+td.asusBRl
+			{
+			background: #f0f1f7;		/* very light blue */
+			}
+
+tr.asus
+			{
+			background: #9ea3e2;		/* light blue */
+			}
+
+span.utran
+			{
+			color: #c0c0c0;			/* light gray */
+			}
+
+pre,
+pre.middle,
+pre.small,
+td.gray
+			{
+			background:#e4e4e4;		/* light gray */
+			}
+
+pre.light,
+pre.slight,
+pre.mlight
+			{
+			background:#f4f4f4;		/* very light gray */
+			}
+
+a:hover,
+a.src:link,
+a.src:hover,
+a.src:active,
+a.src:visited
+			{
+			color: #000099;			/* blue */
+			}
+

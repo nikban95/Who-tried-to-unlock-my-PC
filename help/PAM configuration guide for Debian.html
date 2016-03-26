@@ -1,0 +1,1038 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en"><head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="author" content="J.J.E. Winius">
+        <meta name="copyright" content="©2011 J.J.E. Winius">
+        <meta name="description" content="PAM configuration guide for Debian">
+	<meta name="keywords" content="pam pluggable authentication modules debian linux guide howto defaults default">
+
+	<link rel="shortcut icon" href="http://www.rjsystems.nl/img/favicon.ico" type="image/x-icon">
+
+        <link rel="stylesheet" type="text/css" href="PAM%20configuration%20guide%20for%20Debian_files/global.css">
+        <link rel="stylesheet" type="text/css" href="PAM%20configuration%20guide%20for%20Debian_files/font-family.css">
+        <link rel="stylesheet" type="text/css" href="PAM%20configuration%20guide%20for%20Debian_files/font-size.css">
+        <link rel="stylesheet" type="text/css" href="PAM%20configuration%20guide%20for%20Debian_files/font-decoration.css">
+        <link rel="stylesheet" type="text/css" href="PAM%20configuration%20guide%20for%20Debian_files/font-style.css">
+        <link rel="stylesheet" type="text/css" href="PAM%20configuration%20guide%20for%20Debian_files/font-weight.css">
+        <link rel="stylesheet" type="text/css" href="PAM%20configuration%20guide%20for%20Debian_files/color.css">
+
+        <title>PAM configuration guide for Debian</title>
+</head>
+
+<body lang="en">
+
+<div><img src="PAM%20configuration%20guide%20for%20Debian_files/rjsystems-748.jpg" alt="RJ Systems"></div>
+
+<table class="one" border="0">
+	<tbody><tr>
+		<td align="right">
+		<b><i>Linux System Administration</i></b>
+		</td>
+	</tr>
+</tbody></table>
+
+<table class="two" border="0">
+	<tbody><tr>
+		<td class="one" valign="middle" align="center">
+		<a href="http://www.rjsystems.nl/en/0000.php">
+		<span>Home</span></a>
+		</td>
+
+		<td class="one" valign="middle" align="center">
+		<a href="http://www.rjsystems.nl/en/2100.php">
+		<span class="red">Tech</span></a>
+		</td>
+
+		<td class="one" valign="middle" align="center">
+		<a href="http://www.rjsystems.nl/en/3100.php">
+		<span>Linux</span></a>
+		</td>
+
+		<td class="one" valign="middle" align="center">
+		<a href="http://www.rjsystems.nl/en/4100.php">
+		<span>Links</span></a>
+		</td>
+
+		<td class="one" valign="middle" align="center">
+		<a href="http://www.rjsystems.nl/en/5100.php">
+		<span>Consulting</span></a>
+		</td>
+	</tr>
+</tbody></table>
+
+<table class="one" border="0">
+	<tbody><tr>
+		<td class="two" valign="top">
+		<table class="four" width="80%" border="0">
+			<tbody><tr>
+				<td class="twelve" valign="top">
+				<br>
+				<div class="shade"><a href="http://www.rjsystems.nl/en/2100.php">Notes&nbsp;</a></div>
+				<br>
+				<div><a href="http://www.rjsystems.nl/en/2200.php">This system&nbsp;</a></div>
+				<br>
+				<div><a href="http://www.rjsystems.nl/en/2300.php"></a></div>
+				<br>
+				<div><a href="http://www.rjsystems.nl/en/2400.php"></a></div>
+				<br>
+				<div><a href="http://www.rjsystems.nl/en/2500.php"></a></div>
+				<br>
+				</td>
+			</tr>
+		</tbody></table>
+		<table class="six" width="80%" border="0">
+			<tbody><tr>
+				<td>
+				<br>
+				<a href="http://validator.w3.org/check?uri=http%3A%2F%2Fwww.rjsystems.nl/en/2100-pam-debian.php">
+				<img class="val" src="PAM%20configuration%20guide%20for%20Debian_files/valid-xhtml10-blue.asc" alt="Valid XHTML 1.0!"></a>
+				<br>
+				<br>
+				<a href="http://jigsaw.w3.org/css-validator/validator?uri=www.rjsystems.nl/en/2100-pam-debian.php&amp;warning=no;&amp;profile=css2;">
+				<img class="val" src="PAM%20configuration%20guide%20for%20Debian_files/vcss-blue.asc" alt="Valid CSS!"></a>
+				<br>
+				<br>
+				<a href="http://6bone.informatik.uni-leipzig.de/ipv6/stats/stats.php3">
+				<img src="PAM%20configuration%20guide%20for%20Debian_files/log.gif" alt="IPv6 test"></a>
+				<br>
+				<br>
+				
+				</td>
+			</tr>
+		</tbody></table>
+		</td>
+
+		<td valign="top">
+		
+<h2>PAM configuration guide for Debian</h2>
+
+<table class="eight" border="0" cellpadding="6" cellspacing="0">
+	<tbody><tr>
+	<td class="ten">
+		<ol>
+		<li class="menuL"><a class="hpageL" href="#serv">Service type</a></li>
+		<li class="menuL"><a class="hpageL" href="#type">Module type</a></li>
+		<li class="menuL"><a class="hpageL" href="#cont">Control</a></li>
+		<li class="menuL"><a class="hpageL" href="#mods">Module path</a></li>
+		<li class="menuL"><a class="hpageL" href="#args">Arguments</a></li>
+		<li class="menuL"><a class="hpageL" href="#incl">Include statements</a></li>
+		<li class="menuL"><a class="hpageL" href="#deb5">Debian 5.0 defaults</a></li>
+		<li class="menuL"><a class="hpageL" href="#deb6">Debian 6.0 defaults</a></li>
+		<li class="menuL"><a class="hpageL" href="#also">See also</a></li>
+		<li class="menuL"><a class="hpageL" href="#frtr">Further reading</a></li>
+		<li class="menuL"><a class="hpageL" href="#srcs">Sources</a></li>
+		</ol>
+	</td>
+	</tr>
+</tbody></table>
+
+<a name="intr"></a><b class="link">Introduction</b>
+
+<p>
+In the past, programs for logging into a console, or the X Window System, had to be modified to support 
+every new authentication method that was introduced. To remedy this situation, a framework was developed 
+in the 1990s by Sun Microsystems' SunSoft development group, called Pluggable Authentication Modules 
+(PAM). Basically a suite of shared libraries, it provides an abstraction layer between, on the one hand 
+the various methods available that provide authentication, such as passwords, smartcards and biometrics, 
+and on the other hand the applications that require authentication and would otherwise have to support 
+those methods directly. With PAM, all that is necessary for these components to cooperate is that a 
+specific PAM module be available for each of them.
+</p>
+
+<p>
+This page explains how <a class="src" href="http://www.kernel.org/pub/linux/libs/pam/">Linux-PAM</a> is configured on systems running <a class="src" href="http://www.debian.org/">Debian GNU/Linux</a>, although most all of it will 
+apply to other distributions as well. It is meant to support other pages on this site that cover 
+subjects such as OpenLDAP and Kerberos.
+</p>
+
+
+
+<br>
+<a name="serv"></a><b class="link">1. Service type</b>
+
+<p>
+PAM is configured by defining a set of rules that can be <i>stacked</i> to combine the functions of 
+various modules in order to complete a given authentication task. Originally, all PAM rules were defined 
+in a single configuration file, <b class="comp">/etc/pam.conf</b>. This file can still be used, in 
+which case each rule has up to five fields:
+</p>
+
+<pre>service-type	module-type	control		module-path	arguments
+</pre>
+
+<p>
+The <i>service type</i> usually matches the name of the service (see 
+<b class="comp">/etc/services</b>) or application making the call to PAM, thus allowing certain 
+modules to be applied to them. Valid service types can be, for example, <b class="comp">login</b>, 
+<b class="comp">su</b>, <b class="comp">sshd</b>, or <b class="comp">xdm</b>, although 
+<b class="comp">other</b> is used as a default.
+</p>
+
+<p>
+Later it became possible to use a directory instead. Now, if <b class="comp">/etc/pam.d/</b> is 
+present, which is the default for Debian lenny, PAM will ignore <b class="comp">/etc/pam.conf</b> and 
+instead search the directory for a filename that matches the name of the service or application making 
+the call. Usually, these configuration files have almost the same syntax as before:
+</p>
+
+<pre>module-type	control		module-path	arguments
+</pre>
+
+
+
+<br>
+<a name="type"></a><b class="link">2. Module type</b>
+
+<p>
+The module <i>type</i>, or <i>task</i>, is the management group that the rule corresponds to. Any 
+particular PAM module will support up to four different types:
+</p>
+
+<table>
+	<tbody><tr class="type">
+		<td class="type">
+		<i>auth</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Authentication and authorization. The user's identity is established by matching their 
+		login name and password against a source, resulting in success or failure. Group 
+		memberships and other priviledges are also granted.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>account</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Account management. Often implemented to restrict or permit access to a service 
+		according to, e.g. time of day, available resources, membership of the <i>wheel</i> 
+		group, or location.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>password</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Password management. Required for updating a user's authentication token. There is 
+		usually one module for each challenge/response-based authentication type.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>session</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Session management. Performs required tasks for users before and after they use a 
+		service, e.g. logging, or mounting directories.
+		</td>
+	</tr>
+</tbody></table>
+
+
+<br>
+<br>
+<a name="cont"></a><b class="link">3. Control</b>
+
+<p>
+The <i>control</i> field determines how PAM will behave when a module fails. There are two different 
+syntaxes available for it: a simple one that uses a single directive, and a more complex one that uses a 
+set of <b class="comp">value=action</b> pairs. The simple syntax includes four possible directives:
+</p>
+
+<table>
+	<tbody><tr class="type">
+		<td class="type">
+		<i>required</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Causes the entire stack to fail if the module's demands are not met, but only after the 
+		entire stack has been processed.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>requisite</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Idem, except that when the module fails control is returned directly to the application. 
+		Often used to provide an extra measure of security.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>sufficient</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Success of the module is enough to satisfy the requirements of an entire stack, after 
+		which no other modules will be processed. If it fails, the process will move on to the 
+		next rule.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>optional</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		The result from this module is only important if it is the only one in the stack.
+		</td>
+	</tr>
+</tbody></table>
+
+<p>
+The more complex syntax uses a square-bracketed selection of <b class="comp">value=action</b> pairs:
+</p>
+
+<pre>[value1=action1 value2=action2 ...]
+</pre>
+
+<p>
+The values are module return codes, possible valid choices for which are:
+</p>
+
+<table>
+	<tbody><tr>
+		<td class="mrcodes">
+		<span class="dropt">abort<span style="width:500px;">Critical error (module "fail now" request).</span></span><br>
+		<span class="dropt">acct_expired<span style="width:500px;">User account expired.</span></span><br>
+		<span class="dropt">auth_err<span style="width:500px;">Authentication failure.</span></span><br>
+		<span class="dropt">authinfo_unavail<span style="width:500px;">Underlying authentication service cannot retrieve authentication information.</span></span><br>
+		<span class="dropt">authtok_disable_aging<span style="width:500px;">Authentication token aging disabled.</span></span><br>
+		<span class="dropt">authtok_err<span style="width:500px;">Authentication token manipulation error.</span></span><br>
+		<span class="dropt">authtok_expired<span style="width:500px;">Authentication token expired.</span></span><br>
+		<span class="dropt">authtok_lock_busy<span style="width:500px;">Authentication token lock busy.</span></span><br>
+		<span class="dropt">authtok_recover_err<span style="width:500px;">Authentication information cannot be recovered.</span></span><br>
+		<span class="dropt">bad_item<span style="width:500px;">Bad item passed to pam_*_item().</span></span><br>
+		<span class="dropt">buf_err<span style="width:500px;">Memory buffer error.</span></span><br>
+		</td>
+		<td class="mrcodes">
+		<span class="dropt">conv_again<span style="width:500px;">Conversation function is event driven and data is not available yet.</span></span><br>
+		<span class="dropt">conv_err<span style="width:500px;">Conversation error.</span></span><br>
+		<span class="dropt">cred_err<span style="width:500px;">Failure setting user credentials.</span></span><br>
+		<span class="dropt">cred_expired<span style="width:500px;">User credentials expired.</span></span><br>
+		<span class="dropt">cred_insufficient<span style="width:500px;">Cannot access authentication data due to insufficient credentials.</span></span><br>
+		<span class="dropt">cred_unavail<span style="width:500px;">User credentials unavailable; the underlying authentication service cannot retrieve them.</span></span><br>
+		<span class="dropt">default<span style="width:500px;">Implies all values not mentioned explicitly.</span></span><br>
+		<span class="dropt">ignore<span style="width:500px;">Ignore underlying account module regardless of whether the control flag is required, optional, or sufficient.</span></span><br>
+		<span class="dropt">incomplete<span style="width:500px;">Please call this function again to complete authentication stack. Before calling again, verify that conversation is completed.</span></span><br>
+		<span class="dropt">maxtries<span style="width:500px;">An authentication service has maintained a retry count which has been reached. No further retries should be attempted.</span></span><br>
+		<span class="dropt">module_unknown<span style="width:500px;">The module is unknown.</span></span><br>
+		</td>
+		<td class="mrcodes">
+		<span class="dropt">new_authtok_reqd<span style="width:500px;">New 
+authentication token required. This is normally returned if the machine 
+security policies require that the password should be changed, either 
+because the password is NULL, or because it has aged.</span></span><br>
+		<span class="dropt">no_module_data<span style="width:500px;">No module specific data is present.</span></span><br>
+		<span class="dropt">open_err<span style="width:500px;">The module could not be loaded.</span></span><br>
+		<span class="dropt">perm_denied<span style="width:500px;">Permission denied.</span></span><br>
+		<span class="dropt">service_err<span style="width:500px;">Error in service module.</span></span><br>
+		<span class="dropt">session_err<span style="width:500px;">Cannot make or remove an entry for the specified session.</span></span><br>
+		<span class="dropt">success<span style="width:500px;">Successful function return.</span></span><br>
+		<span class="dropt">symbol_err<span style="width:500px;">Symbol not found.</span></span><br>
+		<span class="dropt">system_err<span style="width:500px;">System error.</span></span><br>
+		<span class="dropt">try_again<span style="width:500px;">Preliminary check by password service.</span></span><br>
+		<span class="dropt">user_unknown<span style="width:500px;">User not known to the underlying authenticaiton module.</span></span><br>
+		</td>
+	</tr>
+</tbody></table>
+
+<p>
+The actions can either be unsigned integers, indicating the number of modules in the stack to jump over 
+next, or be one of the following keywords: 
+</p>
+
+<table>
+	<tbody><tr class="type">
+		<td class="type">
+		<i>ignore</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		The module's return status will not influence the final result unless there are no other 
+		modules in the stack.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>bad</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		The module's return status should indicate a module failure. If it is the first failure, 
+		this return status will be used for the entire stack.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>die</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Idem, except that the stack also terminates and control is immediately returned to the 
+		application.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>ok</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		The return code will override a previous success state of the stack, but not a previous 
+		failure state.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>done</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Idem, except that the stack also terminates and control is immediately returned to the 
+		application.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>reset</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Clear the stack's memory and start again with the next stacked module.
+		</td>
+	</tr>
+</tbody></table>
+
+<p>
+To illustrate how this syntax is used, each of the four simple control directives mentioned above can be 
+replaced with an equivalent complex expression:
+</p>
+
+<table>
+	<tbody><tr class="type">
+		<td class="type">
+		<i>required</i>
+		</td>
+		<td class="type">
+		=
+		</td>
+		<td class="type">
+		[
+		</td>
+		<td class="type">
+		success=ok
+		</td>
+		<td class="type">
+		new_authtok_reqd=ok
+		</td>
+		<td class="type">
+		ignore=ignore
+		</td>
+		<td class="type">
+		default=bad
+		</td>
+		<td class="type">
+		]
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>requisite</i>
+		</td>
+		<td class="type">
+		=
+		</td>
+		<td class="type">
+		[
+		</td>
+		<td class="type">
+		success=ok
+		</td>
+		<td class="type">
+		new_authtok_reqd=ok
+		</td>
+		<td class="type">
+		ignore=ignore
+		</td>
+		<td class="type">
+		default=die
+		</td>
+		<td class="type">
+		]
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>sufficient</i>
+		</td>
+		<td class="type">
+		=
+		</td>
+		<td class="type">
+		[
+		</td>
+		<td class="type">
+		success=done
+		</td>
+		<td class="type">
+		new_authtok_reqd=done
+		</td>
+		<td class="type">
+
+		</td>
+		<td class="type">
+		default=ignore
+		</td>
+		<td class="type">
+		]
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>optional</i>
+		</td>
+		<td class="type">
+		=
+		</td>
+		<td class="type">
+		[
+		</td>
+		<td class="type">
+		success=ok
+		</td>
+		<td class="type">
+		new_authtok_reqd=ok
+		</td>
+		<td class="type">
+
+		</td>
+		<td class="type">
+		default=ignore
+		</td>
+		<td class="type">
+		]
+		</td>
+	</tr>
+</tbody></table>
+
+
+
+<br>
+<br>
+<a name="mods"></a><b class="link">4. Module path</b>
+
+<p>
+The <i>module path</i> is either the full filename of the module, beginning with a "/", or a pathname 
+that is relative to the default module directory, which is <b class="comp">/lib/security/</b> on a 
+Debian lenny system. In practice, this usually means that only the names of the modules are mentioned.
+</p>
+
+<p>
+The modules themselves are all named as <b class="comp">pam_&lt;name&gt;.so</b>. See the 
+<i>Linux-PAM System Administrator's Guide</i> (linked below) for a list of all standard modules, their 
+descriptions and possible arguments.
+</p>
+
+
+<br>
+<a name="args"></a><b class="link">5. Arguments</b>
+
+<p>
+The last field is a space-separated list of tokens that can be used to modify the behavior of a module. 
+Any arguments are usually found in the documentation for the module (e.g. 
+<b class="comp">man pam_unix</b>). If an argument includes one or more spaces, it should surrounded by 
+square brackets.
+</p>
+
+<p>
+Some modules go further and even have their own dedicated configuration files.
+</p>
+
+
+
+<br>
+<a name="incl"></a><b class="link">6. Include statements</b>
+
+<p>
+Linux-PAM also includes two relatively new keywords that are usually described as control directives 
+− even in the <i>Linux-PAM System Administrator's Guide</i> − but are actually quite 
+different:
+</p>
+
+<table>
+	<tbody><tr class="type">
+		<td class="type">
+		<i>include</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Includes all lines of the same <i>module type</i> found in an additional configuration 
+		file, the name of which is specified as an argument.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>substack</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Idem, except that evaluation of the <i>done</i> and <i>die</i> actions in a substack do 
+		not cause PAM to skip the rest of the stack (only the substack), jumps cannot escape the 
+		substack process (the substack is treated as a single module), and the <i>reset</i> 
+		action will only return the entire stack to the state it was in when the substack 
+		evaluation started.
+		</td>
+	</tr>
+</tbody></table>
+
+<p>
+As might be expected, the syntax for their use is a little different as well:
+</p>
+
+<pre>module-type	keyword		file-path
+</pre>
+
+<p>
+Here, the <i>file path</i> is either the full name of the file, beginning with a "/", or a pathname 
+that is relative to the <b class="comp">/etc/pam.d/</b> directory.
+</p>
+
+<p>
+Previously, Linux-PAM did not provide any <i>include</i> methods. To compensate for this lack of basic 
+functionality, some distributions followed a solution adopted by RedHat, which was to use a module, called 
+<b class="comp">pam_stack.so</b>. A complicated patch, it was basically a kludge that hijacked PAM's 
+internals to obtain a pass over an additional configuration file. 
+</p>
+
+<p>
+At first, Debian used <b class="comp">pam_stack.so</b> also, but later switched to a more elegant 
+patch that achieves essentially the same result. The syntax for it is:
+</p>
+
+<pre>@include	file-path
+</pre>
+
+<p>
+These statements are still used in Debian lenny, even though it is now possible to replaced them with 
+native PAM include statements that are both more efficient and more flexible. Therefore, one might 
+expect that this Debian patch will eventually be phased out.
+</p>
+
+
+
+<br>
+<a name="deb5"></a><b class="link">7. Debian 5.0 defaults</b>
+
+<p>
+On <a class="src" href="http://www.debian.org/releases/lenny/">Debian 5.0 (lenny)</a> systems, every PAM service configuration file contains between one and four 
+<b class="comp">@include</b> statements. This is because Debian lenny uses four configuration files 
+− one for each of the four <i>module types</i> − to apply the same system defaults to all 
+<i>service types</i>. It is a much more efficient solution than having to edit all of the individual 
+service configuration files every time a general change is required. The five system default 
+configuration files are:
+</p>
+
+<ul>
+<li><b class="comptd">/etc/pam.d/common-auth</b></li>
+<li><b class="comptd">/etc/pam.d/common-account</b></li>
+<li><b class="comptd">/etc/pam.d/common-password</b></li>
+<li><b class="comptd">/etc/pam.d/common-session</b></li>
+</ul>
+
+<p>
+System administrators are expected to edit only these four files. When configuring certain network 
+applications, doing so is mandatory. In such cases, it is good to know what the default configurations 
+are for these files. Here is an overview, followed by a few explanations:
+</p>
+
+<p>
+<b class="comp">/etc/pam.d/common-auth</b>:
+</p>
+
+<pre>auth		required	pam_unix.so	nullok_secure
+</pre>
+
+<p>
+<b class="comp">/etc/pam.d/common-account</b>:
+</p>
+
+<pre>account		required	pam_unix.so
+</pre>
+
+<p>
+<b class="comp">/etc/pam.d/common-password</b>:
+</p>
+
+<pre>password	required	pam_unix.so	nullok obscure md5
+</pre>
+
+<p>
+<b class="comp">/etc/pam.d/common-session</b>:
+</p>
+
+<pre>session		required	pam_unix.so
+</pre>
+
+<p>
+The default employs only a single PAM module, <b class="comp">pam_unix.so</b>, which is used for 
+standard Unix authentication, retrieving and setting account information, and changing passwords. This 
+module has many possible arguments, four of which are used 
+here:
+</p>
+
+<table>
+	<tbody><tr class="type">
+		<td class="type">
+		<i>md5</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Encrypt new passwords with the MD5 algorithm.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>nullok</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Allow users to access services even if their password is blank.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>nullok_secure</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Idem, as long as PAM_TTY equals one of the values found in 
+		<b class="comp">/etc/securetty</b>.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>obscure</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Enable some extra checks on password strength.
+		</td>
+	</tr>
+</tbody></table>
+
+<p>
+The last two arguments are not mentioned in the <i>Linux-PAM System Administrator's Guide</i>, but are 
+described in the Debian man page for <b class="comp">pam_unix</b>, along with many other options.
+</p>
+
+
+
+<br>
+<a name="deb6"></a><b class="link">8. Debian 6.0 defaults</b>
+
+<p>
+On <a class="src" href="http://www.debian.org/releases/squeeze/">Debian 6.0 (squeeze)</a> systems, every PAM service configuration file contains between one and five 
+<b class="comp">@include</b> statements. This is because Debian squeeze uses five configuration files: 
+one for each of the first three <i>module types</i> and two files for the fourth. This is to apply the 
+same system defaults to all <i>service types</i>. It is a much more efficient solution than having to 
+edit all of the individual service configuration files every time a general change is required. The five 
+system default configuration files are:
+</p>
+
+<ul>
+<li><b class="comptd">/etc/pam.d/common-auth</b></li>
+<li><b class="comptd">/etc/pam.d/common-account</b></li>
+<li><b class="comptd">/etc/pam.d/common-password</b></li>
+<li><b class="comptd">/etc/pam.d/common-session</b></li>
+<li><b class="comptd">/etc/pam.d/common-session-noninteractive</b></li>
+</ul>
+
+<p>
+The last file is new with Debian squeeze, its purpose being to allow those session modules that do not 
+provide <i>shell-like</i> interactive capabilities for users (e.g. cron, cups, samba, ppp) to be 
+separated from those that do (e.g. login, ssh, gdm). This way, it can be avoided that certain modules 
+are called unnecessarily for certain services in certain contexts.
+</p>
+
+<p>
+All of these files now include a structure that is a bit more complex than it was previously with Debian 
+lenny:
+</p>
+
+<ol>
+<li>A <i>primary</i> block of per-package modules.</li>
+<li>A fallback module for if no primary-block module succeeds.</li>
+<li>A module to prime the stack with a positive return value.</li>
+<li>An optional <i>additional</i> block of per-package modules.</li>
+</ol>
+
+<p>
+The primary block consists of one or more PAM modules associated with various applications. The fallback 
+is a module that always denys access in case none of the primary block modules succeed. The stack is 
+then primed to permit access with a module that always results in a positive return value. This is to 
+avoid an error code being returned in case a success code has not already been set. Finally, an 
+additional block of one or more modules may follow.
+</p>
+
+<p>
+System administrators are expected to alter only these five files. However, as of PAM v1.0.1-6, the 
+default is to manage these files with <b class="comp">pam-auth-update</b>. This Perl script is used to 
+configure PAM using the pre-defined profiles that come with PAM module packages. Nevertheless, it is 
+good to know what the default configurations are for these files in case manual intervention is needed 
+anyway. Here is an overview, followed by a few explanations:
+</p>
+
+<p>
+<b class="comp">/etc/pam.d/common-auth</b>:
+</p>
+
+<pre class="small">auth		[success=1 default=ignore]				pam_unix.so nullok_secure
+auth		requisite						pam_deny.so
+auth		required						pam_permit.so
+</pre>
+
+<p>
+<b class="comp">/etc/pam.d/common-account</b>:
+</p>
+
+<pre class="small">account		[success=1 new_authtok_reqd=done default=ignore]	pam_unix.so
+account		requisite						pam_deny.so
+account		required						pam_permit.so
+</pre>
+
+<p>
+<b class="comp">/etc/pam.d/common-password</b>:
+</p>
+
+<pre class="small">password	[success=1 default=ignore]				pam_unix.so obscure sha512
+password	requisite						pam_deny.so
+password	required						pam_permit.so
+</pre>
+
+<p>
+<b class="comp">/etc/pam.d/common-session</b>:
+</p>
+
+<pre class="small">session		[default=1]						pam_permit.so
+session		requisite						pam_deny.so
+session		required						pam_permit.so
+session		required						pam_unix.so
+</pre>
+
+<p>
+<b class="comp">/etc/pam.d/common-session-noninteractive</b>:
+</p>
+
+<pre class="small">session		[default=1]						pam_permit.so
+session		requisite						pam_deny.so
+session		required						pam_permit.so
+session		required						pam_unix.so
+</pre>
+
+<p>
+As opposed to the PAM configuration files in <a class="src" href="http://www.debian.org/releases/lenny/">Debian 5.0 (lenny)</a>, here the first three files are configured so that 
+the correct return values are more likely to be given, rather than when this is left up to the 
+<b class="comp">pam_unix.so</b> module alone, or any other module(s) that might be used along with it 
+or in its place.
+</p>
+
+<p>
+In each of these three cases, depending on the response from the <b class="comp">pam_unix.so</b> 
+module, the second module, <b class="comp">pam_deny.so</b>, will either be skipped or not. If it is, 
+the next and last module to be processed will be <b class="comp">pam_permit.so</b>, which always 
+permits access. If it is not skipped, <b class="comp">pam_deny.so</b> will not only deny access, but 
+because of the <i>requisite</i> directive, control will immediately be returned to the application 
+before <b class="comp">pam_permit.so</b> is ever reached.
+</p>
+
+<p>
+The default configuration employs three different PAM modules. The first, 
+<b class="comp">pam_unix.so</b>, is used for standard Unix authentication, retrieving and setting 
+account information, and changing passwords. This module has many possible arguments, three of which are 
+used here:
+</p>
+
+<table>
+	<tbody><tr class="type">
+		<td class="type">
+		<i>sha512</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Encrypt new passwords with the SHA512 algorithm. If this is not recognized by the crypt 
+		function, it falls back to MD5.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>nullok_secure</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Allow users to access services even if their password is blank, but only as long as 
+		PAM_TTY equals one of the values found in <b class="comp">/etc/securetty</b>.
+		</td>
+	</tr>
+	<tr class="type">
+		<td class="type">
+		<i>obscure</i>
+		</td>
+		<td class="type">
+		−
+		</td>
+		<td class="type">
+		Enable some extra checks on password strength.
+		</td>
+	</tr>
+</tbody></table>
+
+<p>
+The last two arguments are not mentioned in the <i>Linux-PAM System Administrator's Guide</i>, but are 
+described in the Debian man page for <b class="comp">pam_unix</b>, along with many other options.
+</p>
+
+
+
+<br>
+<a name="also"></a><b class="link">9. See also</b>
+
+<ul>
+
+<li><a class="src" href="http://www.rjsystems.nl/en/2100-kerberos-client.php">MIT Kerberos V client on Debian&nbsp;lenny</a></li>
+
+<li><a class="src" href="http://www.rjsystems.nl/en/2100-d6-kerberos-client.php">MIT Kerberos V client on Debian&nbsp;squeeze</a></li>
+
+<li><a class="src" href="http://www.rjsystems.nl/en/2100-openldap-client.php">OpenLDAP client on Debian&nbsp;lenny</a></li>
+
+<li><a class="src" href="http://www.rjsystems.nl/en/2100-d6-openldap-client.php">OpenLDAP client on Debian&nbsp;squeeze</a></li>
+
+<li><a class="src" href="http://www.rjsystems.nl/en/2100-openldap-client-kerberos.php">OpenLDAP client with MIT Kerberos V on Debian&nbsp;lenny</a></li>
+
+<li><a class="src" href="http://www.rjsystems.nl/en/2100-d6-openldap-client-kerberos.php">OpenLDAP client with MIT Kerberos V on Debian&nbsp;squeeze</a></li>
+
+<li><a class="src" href="http://www.rjsystems.nl/en/2100-kerberos-openldap-client.php">Integrated Kerberos-OpenLDAP client on Debian&nbsp;lenny</a></li>
+
+<li><a class="src" href="http://www.rjsystems.nl/en/2100-kerberos-openafs-client.php">Kerberos-OpenAFS client</a></li>
+
+<li><a class="src" href="http://www.rjsystems.nl/en/2100-kerberos-openldap-openafs-client.php">Integrated Kerberos-OpenLDAP-OpenAFS client</a></li>
+
+</ul>
+
+
+
+<br>
+<a name="frtr"></a><b class="link">10. Further reading</b>
+
+<ul>
+
+<li>Samar V, Schemers R. 1995. RFC 86.0 − Unified Login with Pluggable Authentication Modules (PAM). Open Software Foundation. 
+		<a class="src" href="http://www.opengroup.org/rfc/mirror-rfc/rfc86.0.txt">Text</a> at <a class="src" href="http://www.opengroup.org/">The Open Group</a>.</li>
+
+</ul>
+
+
+
+<br>
+<a name="srcs"></a><b class="link">11. Sources</b>
+
+<ul>
+
+<li>Carter G. 2003. LDAP System Administration. O'Reilly &amp; Associates, Inc. ISBN 1-56592-491-6. 294 pp.</li>
+
+<li>Garman J. 2003. Kerberos, The Definitive Guide. O'Reilly &amp; Associates, Inc. ISBN-13 978-0-596-00403-3. 253 pp.</li>
+
+<li>Leeuw D. 2012. PAM Explanation.
+		<a class="src" href="http://pig.made-it.com/pam.html">HTML</a> at <a class="src" href="http://pig.made-it.com/">PIG: Practical Interoperability Guides</a>.</li>
+
+<li>Milicchio F, Gehrke WA. 2007. Distributed Services with OpenAFS. Springer-Verlag. ISBN-13 978-3-540-36633-1. 395 pp.</li>
+
+<li>Morgan AG. 2001. Pluggable Authentication Modules (PAM). Open-PAM working group. 
+		<a class="src" href="http://www.kernel.org/pub/linux/libs/pam/pre/doc/current-draft.txt">Text</a> at <a class="src" href="http://www.kernel.org/">The Kernel Archives</a>.</li>
+
+<li>Morgan AG, Kukuk T. 2010. The Linux-PAM System Administrator's Guide. 
+		<a class="src" href="http://www.kernel.org/pub/linux/libs/pam/Linux-PAM-html/Linux-PAM_SAG.html">HTML</a> at <a class="src" href="http://www.kernel.org/">The Kernel Archives</a>..</li>
+
+<li>Pettenò D. 2008. Linux-PAM 0.99 upgrade guide. 
+		<a class="src" href="http://www.gentoo.org/proj/en/base/pam/upgrade-0.99.xml">HTML</a> at <a class="src" href="http://www.gentoo.org/">Gentoo Linux</a>.</li>
+
+</ul>
+
+
+
+<br>
+<br>
+
+<div id="copy">
+
+Last modified: 2014-02-15, 23:03
+
+<br>
+<br>
+
+©2003-2014 <a class="src" href="http://www.rjsystems.nl/">RJ Systems</a>. Permission is granted to copy, distribute and/or modify the<br>
+content of this page under the terms of the <a class="src" href="http://opencontent.org/opl.shtml">OpenContent License</a>, version 1.0.
+
+</div>
+
+
+		</td>
+	</tr>
+</tbody></table>
+
+
+
+
+</body></html>

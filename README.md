@@ -21,6 +21,6 @@ Usage:
 
     auth    optional                  pam_exec.so     (path to your script)
 
-    eg: auth    optional              pam_exec.so 		/home/nike/wrongPasswordPic/wrongPasswordPicScript.sh
+    eg: auth    optional              pam_exec.so 		/home/nike/projects/wrongPasswordPic/wrongPasswordPicScript.sh
 
 5. Now On every wrong login a webcam shot will be stored in /var/tmp directory.

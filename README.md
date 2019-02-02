@@ -1,4 +1,4 @@
-# wrongPasswordFacePic
+# Who tried to unlock my PC
 Takes Webcam shot on wrong password
 
 It stores the picture at /var/tmp directory.

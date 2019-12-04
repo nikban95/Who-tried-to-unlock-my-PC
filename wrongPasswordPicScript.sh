@@ -26,4 +26,4 @@ fi
 # -s to tell the resolution
 # -i to tell the source from where to grab the video
 # -frames 1 to gra only one frame that will be a photo
-avconv -f video4linux2 -s 640x480 -i /dev/video0 -ss 0:0:2 -frames 1 $imagePath
+avconv -f video4linux2 -s 640x480 -i /dev/video0 -ss 0:0:1 -frames 1 $imagePath

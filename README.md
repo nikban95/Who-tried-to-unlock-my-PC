@@ -34,4 +34,4 @@ eg:
 ````
 - Now on every invalid login, a web cam shot will be clicked. The shot will be stored at /var/tmp directory.
 
-Feel free to suggest any change and contribute to it!!!
+Feel free to suggest any change or contributing to it!!!

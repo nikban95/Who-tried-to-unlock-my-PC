@@ -1,26 +1,36 @@
-# Who tried to unlock my PC
-Takes Webcam shot on wrong password
+### Who tried to unlock my PC
 
-It stores the picture at /var/tmp directory.
+#### What is it about?
+On invalid login(wrong password), it clicks camera shots using webcam.
+It works only on Linux based systems.
 
-Dependency:
+#### Dependency:
+- avconv
 
-1. avconv
-
-Usage:
-
-1. Edit the pam common-suth file. Its location is /etc/pam.d/common-auth You can do it by: sudo gedit /etc/pam.d/common-auth
-
-2. Locate the line written below. It contains pam_unix.so and is by default before the one with pam_deny.so :
-
+#### Setup
+- Install the required dependencies.
+- Go to /etc/pam.d/ location.
+- Edit the 'common-auth' file.
+````
+cd /etc/pam.d/
+sudo gedit common-auth
+````
+- Locate the line written below. It contains 'pam_unix.so' string.
+````
     auth	[success=1 default=ignore]	pam_unix.so nullok_secure
-
-3. In this line change the success=1 with success=2
-
-4. Now add a line below it:
-
+````
+- In this line, replace the 'success=1' with 'success=2' string.
+````
+    auth	[success=2 default=ignore]	pam_unix.so nullok_secure
+````
+- Now add a line below it:
+````
     auth    optional                  pam_exec.so     (path to your script)
+````
+eg: 
+````    
+    auth    optional              pam_exec.so 		/home/nike/projects/wrongPasswordPic/wrongPasswordPicScript.sh
+````
+- Now on every invalid login, a web cam shot will be clicked. The shot will be stored at /var/tmp directory.
 
-    eg: auth    optional              pam_exec.so 		/home/nike/projects/wrongPasswordPic/wrongPasswordPicScript.sh
-
-5. Now On every wrong login a webcam shot will be stored in /var/tmp directory.
+Feel free to suggest any change and contribute to it!!!

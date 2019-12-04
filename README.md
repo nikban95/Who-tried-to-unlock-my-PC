@@ -1,8 +1,9 @@
 ### Who tried to unlock my PC
 
 #### What is it about?
-On invalid login(wrong password), it clicks camera shots using webcam.
-It works only on Linux based systems.
+- It clicks the intruders photos who tried to access your system without your permission.
+- On invalid login(wrong password), it clicks camera shots using webcam.
+- It works only on Linux based systems.
 
 #### Dependency:
 - avconv
